@@ -1,47 +1,20 @@
 <script setup>
-  import PlanPicker from './components/PlanPicker.vue';
-  import { ref } from 'vue';
-
-  const show = ref(true)
+import FancyButton from './components/FancyButton.vue';
 </script>
 
 <template>
- <div class="content">
-  <h1 class="title">Coffee Plans</h1>
+  <div class="content">
+    <!-- slots let you pass html down to child elements - here the strong tag can be applied -->
+    <FancyButton>
+      <!-- can specify a name slot with the template tag and v-slot directive -->
+      <!-- can access props with 'selectedProps or deconstruct as below' -->
+      <template #icon="{ hover }">
+        {{ hover ? '❤️' : '💔' }}
+      </template>
 
-  <h2 class="subtitle">We travel the world to source the very best single origin coffee for you</h2>
-
-  <label for=""><input type="checkbox" v-model="show">Show plan picker</label>
-  
-  <PlanPicker v-if="show"/>
-</div>
+      <template v-slot:default>
+        <strong>S</strong>ubmit
+      </template>
+    </FancyButton>
+  </div>
 </template>
-
-<style scoped>
-header {
-  line-height: 1.5;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
-</style>
