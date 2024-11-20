@@ -1,7 +1,13 @@
 <script setup>
-  import GithubCard from './components/GithubCard.vue';
+import AppAlert from './components/AppAlert.vue';
+import { ref } from 'vue';
+
+const alertTypes = ref(["info", "success", "warning", "error"])
 </script>
 
 <template>
-  <GithubCard username="natashabuckham"></GithubCard>
+  <div class="p-5">
+    <AppAlert v-for="alert in alertTypes" :key="alert" :type="alert"></AppAlert>
+  </div>
+
 </template>
