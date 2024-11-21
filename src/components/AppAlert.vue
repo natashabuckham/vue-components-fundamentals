@@ -12,10 +12,14 @@ const props = defineProps({
     }
 })
 
-let close = ref(false)
+const emit = defineEmits(['closed'])
 
+const closed = ref(false)
+
+// need to pass the props.type as a payload so the parent's listener can compare it with the current data and remove the correct information
 function handleClose() {
-    close = true
+    closed.value = true
+    emit('closed', props.type)
 }
 
 // computed properties are reactive and the function re-executes if any of the dependencies change
@@ -41,9 +45,9 @@ const icon = computed(() => {
 </script>
 
 <template>
-    <div role="alert" :class="`alert ${alertType}`" v-if="!close">
+    <div role="alert" :class="`alert ${alertType}`" v-if="!closed">
         <component :is="icon"></component>
         <span><slot></slot></span>
-        <button @click="handleClose" class="btn btn-sm">x</button>
+        <button @click="handleClose">x</button>
     </div>
 </template>
